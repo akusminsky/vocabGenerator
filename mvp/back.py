@@ -19,33 +19,30 @@ def translate():
     vocabulary = {}
 
     for word in sorted_word_list:
-        translation = get_translation(word)
-        word = get_word(word)
-        if translation:
-            translation = translation.split(";")[:3]
-            translation = ";".join(translation)
-            translation = translation.replace(",", "/")
-            vocabulary[word] = translation
+        dictItem = get_vocabItem(word)
+        if dictItem:
+            for key, value in dictItem.items():
+                vocabulary[key] = value
 
     return jsonify(vocabulary)
 
-def get_word(word):
+def get_vocabItem(word):
+
+    vocabItem = {}
     url = f"https://www.wordreference.com/ites/{word}"
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
     word_elem = soup.find('h3', {'class': 'headerWord'})
-    if word_elem:
-        return word_elem.get_text().strip()
-    else:
-        return None
-
-def get_translation(word):
-    url = f"https://www.wordreference.com/ites/{word}"
-    response = requests.get(url)
-    soup = BeautifulSoup(response.content, "html.parser")
+    word_elem = word_elem.get_text().strip()
     translation_elem = soup.find('li', {'class': 'sense'})
-    if translation_elem:
-        return translation_elem.get_text().strip()
+    translation_elem = translation_elem.get_text().strip()
+    translation_elem = translation_elem.split(";")[:3]
+    translation_elem = ";".join(translation_elem)
+    translation_elem = translation_elem.replace(",", "/")
+    vocabItem[word_elem] = translation_elem
+    
+    if vocabItem:
+        return vocabItem
     else:
         return None
 
