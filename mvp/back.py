@@ -14,7 +14,7 @@ def translate():
         return jsonify({"error": "No text provided"}), 400
 
     word_list = txt.split()
-    sorted_word_list = sorted(set(word_list))  # Remove duplicates and sort unique words
+    sorted_word_list = sorted(set(word_list))
 
     vocabulary = {}
 
