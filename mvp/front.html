@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Translator</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Word Translator</h1>
+    <form id="translateForm">
+        <textarea id="textInput" placeholder="Enter text here..." rows="6" cols="50"></textarea><br>
+        <input type="submit" value="translate">
+    </form>
+    <h2>Translation</h2>
+    <pre id="translationOutput"></pre>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("translateForm").addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            try {
+                const text = document.getElementById("textInput").value;
+                const response = await fetch('http://127.0.0.1:5000/translate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: text })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok.');
+                }
+
+                const data = await response.json();
+                let output = '';
+                for (const [word, translation] of Object.entries(data)) {
+                    output += `${word}: ${translation}\n`;
+                }
+
+                document.getElementById("translationOutput").textContent = output;
+            } catch (error) {
+                alert("Error occurred while translating: " + error.message);
+            }
+        });
+    });
+</script>
+
+    </script>
+    
+</body>
+</html>
