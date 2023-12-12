@@ -4,24 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vocab Generator</title>
-    <link rel="stylesheet" type="text/css" href=".css">
+    <link rel="stylesheet" type="text/css" href="front1.1.css">
 </head>
 <body>
-    <h1>Vocab Generator</h1>
-    <h2>Choose your language</h2>
-
-    <ul>
-        <li id="en">English</li>
-        <li id="it">Italian</li>
-        <li id="fr">French</li>
-        <li id="heb">Hebrew</li>
-    </ul>
-    <form id="translateForm">
-        <textarea id="textInput" placeholder="Enter text here..." rows="6" cols="50"></textarea><br>
-        <input type="submit" value="translate">
-    </form>
-    <h2>Translation</h2>
-    <pre id="translationOutput"></pre>
+    <header>
+        <div class="container">
+            <h1>Vocab Generator</h1>
+            <h2>Choose your language</h2>
+            <nav>
+                <ul>
+                    <li id="en">English</li>
+                    <li id="it">Italian</li>
+                    <li id="fr">French</li>
+                    <li id="heb">Hebrew</li>
+                </ul>
+            </nav>
+            
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <form id="translateForm">
+                <textarea id="textInput" placeholder="Enter text here... (English)" rows="6" cols="50"></textarea><br>
+                <input type="submit" value="Generate Vocabulary">
+            </form>
+            <hr>
+            <h2>Vocab.</h2>
+            <pre id="translationOutput"></pre>
+        </div>
+    </main>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="./front1.1.js"></script>
